@@ -71,12 +71,10 @@
             const counter = document.getElementById('click-counter');
             const button = document.getElementById('attendance-button');
 
-            // Function to update the counter
             function updateCounter(count) {
                 counter.textContent = `${count} ${count === 1 ? 'person' : 'people'} will be there`;
             }
 
-            // Function to fetch the counter value from the server
             function fetchCounter() {
                 fetch('counter.php')
                     .then(response => response.text())
@@ -84,29 +82,26 @@
                         const count = parseInt(data);
                         updateCounter(count);
                     })
-                    .catch(error => {
+                    .catch error => {
                         console.error('Error fetching counter:', error);
                     });
             }
 
-            // Function to increment the counter and update it
             function incrementCounter() {
                 fetch('counter.php', { method: 'POST' })
                     .then(response => response.text())
                     .then(data => {
                         const count = parseInt(data);
                         updateCounter(count);
-                        button.disabled = true; // Disable the button after clicking
+                        button.disabled = true;
                     })
                     .catch(error => {
                         console.error('Error incrementing counter:', error);
                     });
             }
 
-            // Fetch the initial counter value
             fetchCounter();
 
-            // Add a click event listener to the button
             button.addEventListener('click', function () {
                 incrementCounter();
             });
