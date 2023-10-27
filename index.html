@@ -3,87 +3,66 @@
 <head>
     <title>LiquidExchange Lounge Grand Opening</title>
     <style>
-        body {
-            background: url('background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #00FFFF;
-            text-align: center;
-            font-family: "Georgia", serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        h1 {
-            color: #63006E;
-            font-family: "Times New Roman", serif;
-            font-size: 2.5em;
-        }
-
-        #timer {
-            font-size: 2.2em;
-            color: #00FFFF;
-            animation: fadeInOut 3s linear infinite;
-        }
-
-        #excitement-message {
-            font-size: 2em;
-            margin-top: 20px;
-            color: #00FFFF;
-        }
-
-        @keyframes fadeInOut {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
-        .cta-button {
-            background-color: #63006E;
-            color: #00FFFF;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
-
-        #click-counter {
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
+        /* ... (Your existing CSS styles) ... */
     </style>
 </head>
 <body>
     <h1>Welcome to the LiquidExchange Lounge Grand Opening!</h1>
     <p id="timer">Countdown to the Grand Opening</p>
-    <p id "excitement-message">Get ready for an unforgettable night of fun! Check back often for updates and remember, "In the world of stocks, we've found the perfect mix of bulls, bears, and good times!"</p>
+    <p id="excitement-message">Get ready for an unforgettable night of fun! Check back often for updates and remember, "In the world of stocks, we've found the perfect mix of bulls, bears, and good times!"</p>
 
     <!-- Call to Action Button -->
-    <button class="cta-button" id="attendance-button" onclick="increaseCount()">I'll be there</button>
+    <button class="cta-button" id="attendance-button">I'll be there</button>
 
     <!-- Click Counter -->
-    <p id="click-counter"></p>
+    <p id="click-counter">0 people will be there</p>
 
     <script src="countdown.js"></script>
     <script>
-        let clickCount = localStorage.getItem('attendanceCount') || 0;
+        document.addEventListener('DOMContentLoaded', function () {
+            const counter = document.getElementById('click-counter');
+            const button = document.getElementById('attendance-button');
 
-        function increaseCount() {
-            if (!localStorage.getItem('hasClicked')) {
-                clickCount++;
-                localStorage.setItem('attendanceCount', clickCount);
-                localStorage.setItem('hasClicked', 'true');
-                updateCounter();
+            // Function to update the counter
+            function updateCounter(count) {
+                counter.textContent = `${count} ${count === 1 ? 'person' : 'people'} will be there`;
             }
-        }
 
-        function updateCounter() {
-            document.getElementById('click-counter').textContent = `${clickCount} ${clickCount === 1 ? 'person' : 'people'} will be there`;
-        }
+            // Function to fetch the counter value from the server
+            function fetchCounter() {
+                fetch('counter.php')
+                    .then(response => response.text())
+                    .then(data => {
+                        const count = parseInt(data);
+                        updateCounter(count);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching counter:', error);
+                    });
+            }
 
-        updateCounter();
+            // Function to increment the counter and update it
+            function incrementCounter() {
+                fetch('counter.php', { method: 'POST' })
+                    .then(response => response.text())
+                    .then(data => {
+                        const count = parseInt(data);
+                        updateCounter(count);
+                    })
+                    .catch(error => {
+                        console.error('Error incrementing counter:', error);
+                    });
+            }
+
+            // Fetch the initial counter value
+            fetchCounter();
+
+            // Add a click event listener to the button
+            button.addEventListener('click', function () {
+                incrementCounter();
+                button.disabled = true; // Disable the button after clicking
+            });
+        });
     </script>
 </body>
 </html>
