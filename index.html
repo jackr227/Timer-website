@@ -25,7 +25,7 @@
         #timer {
             font-size: 2.2em;
             color: #00FFFF;
-            animation: fadeInOut 3s linear infinite; /* Add animation */
+            animation: fadeInOut 3s linear infinite;
         }
 
         #excitement-message {
@@ -38,6 +38,21 @@
             0%, 100% { opacity: 0; }
             50% { opacity: 1; }
         }
+
+        .cta-button {
+            background-color: #63006E;
+            color: #00FFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        #click-counter {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -45,6 +60,20 @@
     <p id="timer">Countdown to the Grand Opening</p>
     <p id="excitement-message">Get ready for an unforgettable night of fun! Check back often for updates and remember, "In the world of stocks, we've found the perfect mix of bulls, bears, and good times!"</p>
 
+    <!-- Call to Action Button -->
+    <button class="cta-button" id="attendance-button" onclick="increaseCount()">I'll be there</button>
+
+    <!-- Click Counter -->
+    <p id="click-counter">0 people will be there</p>
+
     <script src="countdown.js"></script>
+    <script>
+        let clickCount = 0;
+
+        function increaseCount() {
+            clickCount++;
+            document.getElementById('click-counter').textContent = `${clickCount} people will be there`;
+        }
+    </script>
 </body>
 </html>
