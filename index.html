@@ -53,6 +53,22 @@
             font-size: 1.2em;
             margin-top: 10px;
         }
+
+        /* Confetti Styles */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffdc00;
+            opacity: 0.7;
+            transform: rotate(45deg);
+            animation: confetti-fall 4s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(45deg); }
+            100% { transform: translateY(100vh) rotate(45deg); }
+        }
     </style>
 </head>
 <body>
@@ -71,6 +87,17 @@
             const counter = document.getElementById('click-counter');
             const button = document.getElementById('attendance-button');
 
+            function isButtonClicked() {
+                return localStorage.getItem('buttonClicked') === 'true';
+            }
+
+            function updateButtonState() {
+                if (isButtonClicked()) {
+                    button.disabled = true;
+                    button.textContent = "Already Clicked";
+                }
+            }
+
             function updateCounter(count) {
                 counter.textContent = `${count} ${count === 1 ? 'person' : 'people'} will be there`;
             }
@@ -81,6 +108,7 @@
                     .then(data => {
                         const count = parseInt(data);
                         updateCounter(count);
+                        updateButtonState();
                     })
                     .catch error => {
                         console.error('Error fetching counter:', error);
@@ -93,20 +121,40 @@
                     .then(data => {
                         const count = parseInt(data);
                         updateCounter(count);
-                        button.disabled = true;
+                        updateButtonState();
                     })
                     .catch(error => {
                         console.error('Error incrementing counter:', error);
                     });
             }
 
+            // Function to create confetti
+            function createConfetti() {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                const xPos = Math.random() * window.innerWidth;
+                const yPos = -10;
+                confetti.style.left = `${xPos}px`;
+                confetti.style.top = `${yPos}px`;
+                document.body.appendChild(confetti);
+
+                // Remove the confetti element after animation
+                confetti.addEventListener('animationiteration', () => {
+                    document.body.removeChild(confetti);
+                });
+            }
+
             fetchCounter();
 
             button.addEventListener('click', function () {
                 incrementCounter();
+                localStorage.setItem('buttonClicked', 'true');
+                updateButtonState();
+
+                // Create confetti when the button is clicked
+                createConfetti();
             });
         });
     </script>
-    <script src="countdown.js"></script>
 </body>
 </html>
