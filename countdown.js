@@ -1,7 +1,5 @@
-// JavaScript code in "countdown.js"
 window.onload = function () {
     var countDownDate = new Date("Mar 27, 2024 18:00:00").getTime();
-    var countdownMessage = "Countdown to the Grand Opening";
 
     var x = setInterval(function () {
         var now = new Date().getTime();
@@ -14,7 +12,6 @@ window.onload = function () {
 
         var timer = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
         document.getElementById("timer").innerHTML = timer;
-        document.getElementById("excitement-message").innerHTML = countdownMessage; // Display the message
 
         if (distance < 0) {
             clearInterval(x);
