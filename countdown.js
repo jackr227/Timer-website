@@ -1,21 +1,24 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const targetDate = new Date("March 27, 2024 18:00:00").getTime();
+// JavaScript code in "countdown.js"
+window.onload = function () {
+    var countDownDate = new Date("Mar 27, 2024 18:00:00").getTime();
+    var countdownMessage = "Countdown to the Grand Opening";
 
-    const countdown = setInterval(function () {
-        const now = new Date().getTime();
-        const timeLeft = targetDate - now;
+    var x = setInterval(function () {
+        var now = new Date().getTime();
+        var distance = countDownDate - now;
 
-        if (timeLeft <= 0) {
-            clearInterval(countdown);
-            document.getElementById("timer").innerHTML = "Countdown expired!";
-        } else {
-            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            const countdownText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-            document.getElementById("timer").innerHTML = countdownText;
+        var timer = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+        document.getElementById("timer").innerHTML = timer;
+        document.getElementById("excitement-message").innerHTML = countdownMessage; // Display the message
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "EXPIRED";
         }
     }, 1000);
-});
+};
