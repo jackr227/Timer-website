@@ -3,7 +3,56 @@
 <head>
     <title>LiquidExchange Lounge Grand Opening</title>
     <style>
-        /* ... (Your existing CSS styles) ... */
+        body {
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #00FFFF;
+            text-align: center;
+            font-family: "Georgia", serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #63006E;
+            font-family: "Times New Roman", serif;
+            font-size: 2.5em;
+        }
+
+        #timer {
+            font-size: 2.2em;
+            color: #00FFFF;
+            animation: fadeInOut 3s linear infinite;
+        }
+
+        #excitement-message {
+            font-size: 2em;
+            margin-top: 20px;
+            color: #00FFFF;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .cta-button {
+            background-color: #63006E;
+            color: #00FFFF;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        #click-counter {
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -17,7 +66,6 @@
     <!-- Click Counter -->
     <p id="click-counter">0 people will be there</p>
 
-    <script src="countdown.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const counter = document.getElementById('click-counter');
@@ -48,6 +96,7 @@
                     .then(data => {
                         const count = parseInt(data);
                         updateCounter(count);
+                        button.disabled = true; // Disable the button after clicking
                     })
                     .catch(error => {
                         console.error('Error incrementing counter:', error);
@@ -60,9 +109,9 @@
             // Add a click event listener to the button
             button.addEventListener('click', function () {
                 incrementCounter();
-                button.disabled = true; // Disable the button after clicking
             });
         });
     </script>
+    <script src="countdown.js"></script>
 </body>
 </html>
