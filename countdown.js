@@ -34,3 +34,7 @@ window.onload = function () {
             confetti.style.left = Math.random() * 100 + 'vw';
             confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
             confetti.style.animationDelay = Math.random() * 2 + 's';
+            document.getElementById("confetti-container").appendChild(confetti);
+        }
+    }
+};
