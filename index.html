@@ -48,31 +48,6 @@
             font-size: 1.5em;
             cursor: pointer;
         }
-
-        #click-counter {
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-
-        /* Confetti Styles */
-        .confetti-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #ffdc00;
-            opacity: 0.7;
-            transform: rotate(45deg);
-            animation: confetti-fall 4s linear infinite;
-        }
     </style>
 </head>
 <body>
@@ -81,42 +56,9 @@
     <p id="excitement-message">Get ready for an unforgettable night of fun! Check back often for updates and remember, "In the world of stocks, we've found the perfect mix of bulls, bears, and good times!"</p>
 
     <!-- Call to Action Button -->
-    <button class="cta-button" id="attendance-button">I'll be there</button>
+    <button class="cta-button" id="confetti-button">Yay!</button>
 
-    <!-- Click Counter -->
-    <p id="click-counter">0 people will be there</p>
-
-    <!-- Confetti Container -->
-    <div class="confetti-container" id="confetti-container"></div>
-
-    <!-- JavaScript for Countdown Timer, Button Functionality, and Confetti -->
+    <!-- JavaScript for Countdown Timer and Button Functionality -->
     <script src="countdown.js"></script>
-    <script>
-        // JavaScript to handle button click and confetti animation
-        document.addEventListener("DOMContentLoaded", function () {
-            var attendanceButton = document.getElementById("attendance-button");
-            var clickCounter = document.getElementById("click-counter");
-            var confettiContainer = document.getElementById("confetti-container");
-
-            attendanceButton.addEventListener("click", function () {
-                // Perform the click count functionality
-                fetch('counter.php', { method: 'POST' })
-                    .then(response => response.text())
-                    .then(data => {
-                        clickCounter.textContent = data + " people will be there";
-                    });
-
-                // Create and append confetti elements
-                for (var i = 0; i < 100; i++) {
-                    var confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + 'vw';
-                    confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-                    confetti.style.animationDelay = Math.random() * 2 + 's';
-                    confettiContainer.appendChild(confetti);
-                }
-            });
-        });
-    </script>
 </body>
 </html>
