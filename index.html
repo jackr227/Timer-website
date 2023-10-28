@@ -38,25 +38,6 @@
             0%, 100% { opacity: 0; }
             50% { opacity: 1; }
         }
-
-        .cta-button {
-            background-color: #63006E;
-            color: #00FFFF;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.5em;
-            cursor: pointer;
-        }
-
-        .confetti-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
     </style>
 </head>
 <body>
@@ -64,13 +45,7 @@
     <p id="timer">Countdown to the Grand Opening</p>
     <p id="excitement-message">Get ready for an unforgettable night of fun! Check back often for updates and remember, "In the world of stocks, we've found the perfect mix of bulls, bears, and good times!"</p>
 
-    <!-- Call to Action Button -->
-    <button class="cta-button" id="confetti-button">Yay!</button>
-
-    <!-- Confetti Container -->
-    <div class="confetti-container" id="confetti-container"></div>
-
-    <!-- JavaScript for Countdown Timer and Button Functionality -->
+    <!-- JavaScript for Countdown Timer -->
     <script src="countdown.js"></script>
 </body>
 </html>
