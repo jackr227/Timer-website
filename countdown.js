@@ -4,7 +4,7 @@ window.onload = function () {
     var countdownMessage = "Countdown to the Grand Opening";
 
     var x = setInterval(function () {
-        var now = aDate().getTime();
+        var now = new Date().getTime();
         var distance = countDownDate - now;
 
         if (distance < 0) {
@@ -13,7 +13,7 @@ window.onload = function () {
         } else {
             var days = Math.floor(distance / (1000 * 60 * 60 * 24));
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             var timer = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
@@ -21,15 +21,20 @@ window.onload = function () {
         }
     }, 1000);
 
-    // Handle the button click event
-    var attendanceButton = document.getElementById("attendance-button");
-    attendanceButton.addEventListener("click", function () {
-        // Send a POST request to increment the click count
-        fetch('counter.php', { method: 'POST' })
-            .then(response => response.text())
-            .then(data => {
-                // Update the click count display
-                document.getElementById("click-counter").textContent = data + " people will be there";
-            });
+    // Handle the button click event for confetti
+    var confettiButton = document.getElementById("confetti-button");
+    confettiButton.addEventListener("click", function () {
+        createConfetti();
     });
+
+    function createConfetti() {
+        for (var i = 0; i < 100; i++) {
+            var confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(confetti);
+        }
+    }
 };
