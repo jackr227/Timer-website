@@ -3,7 +3,7 @@ window.onload = function () {
     var countDownDate = new Date("Mar 27, 2024 18:00:00").getTime();
 
     var x = setInterval(function () {
-        var now = new Date().getTime();
+        var now = new Date().getTime(); // Corrected this line
         var distance = countDownDate - now;
 
         if (distance < 0) {
